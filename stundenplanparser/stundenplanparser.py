@@ -82,10 +82,10 @@ class Timetableparser(object):
     
 
     def __parseHTML(self, username, password, fh="fhin"):
-        
-        url = "https://www2.primuss.de/stpl/index.php?FH=%s&Language=" % fh
-        values = {"User": username,
-                "userPassword": password,
+        url = "https://www2.primuss.de/stpl/login.php?FH=%s&Lang=de" % fh
+        values = {"user": username,
+                "pwd": password,
+                "fh": fh,
                 "mode": "login",
                 "submitLogin":"Anmelden"}
         
@@ -97,7 +97,7 @@ class Timetableparser(object):
         session_id = re.findall(r"Session\" value=\"[A-Za-z0-9]*", the_page)[0].split("=\"")[1]
         semester_id = re.findall(r"sem=[0-9]*", the_page)[0].split("=")[1]
         
-        post2 = "https://www2.primuss.de/stpl/index.php?FH=%s&User=%s&Session=%s&Language=&sem=%s&mode=cbGridWochenplanDaten&pers=undefined"\
+        post2 = "https://www3.primuss.de/stpl/index.php?FH=%s&User=%s&Session=%s&Language=&sem=%s&mode=cbGridWochenplanDaten&pers=undefined"\
         % (fh, username, session_id, semester_id)
         
         req2 = urllib2.Request(post2)
